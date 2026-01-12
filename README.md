@@ -79,7 +79,7 @@ npx ts-node src/index.ts
 
 ## Known Limitations & Assumptions
 
-### 1. Walmart Geo-Blocking & "Human-in-the-Loop"
+### 1. Walmart Geo-Blocking
 * **Constraint:** This scraper was developed and tested in **Costa Rica**. Walmart US enforces strict geo-blocking policies that aggressively challenge non-US IP addresses, often serving a "Press & Hold" PerimeterX CAPTCHA that cannot be bypassed programmatically without high-quality US Residential Proxies.
 * ** Mitigation Strategy:**
     * The script detects this block, logs a warning (WARN: Walmart Geo-Block detected), and skips the item gracefully to prevent crashing the entire batch.
@@ -92,5 +92,9 @@ npx ts-node src/index.ts
 * **Constraint:** The current implementation runs as a single-threaded Node.js process using one browser instance.
 * **Context:** For this assigment I assumed 150+ skus, I could scrapped skus but for ease of time and testing I repeated skus for the scraping 
 * **Scaling Path:** For enterprise-scale scraping (10,000+ items), this would need to be refactored into a distributed system where a central queue (Redis) dispatches jobs to multiple worker nodes, each managing its own browser context and proxy rotation to maximize throughput without triggering rate limits.
+
+### 4. Logging Strategy
+* **Decision:** Implemented a custom, lightweight logging utility (`src/logger.ts`) using standard `fs` and `console` methods to keep the project dependency-free and easy to review.
+* **Production Context:** I understand that for a production-grade distributed crawler, a robust logging framework like **Winston** or **Pino** would be preferred. These tools offer structured JSON logging, log rotation, and direct integration with observability platforms (like Datadog, Splunk, or ELK Stack) to handle high-velocity log ingestion.
 
 
