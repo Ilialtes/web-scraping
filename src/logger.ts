@@ -23,7 +23,7 @@ function saveErrorToLog(message: string, data?: any) {
         
         if (data) {
             const dataString = data instanceof Error ? data.stack : JSON.stringify(data);
-            fileContent += `    Details: ${dataString}\n`;
+            fileContent += `Details: ${dataString}\n`;
         }
         
         fs.appendFileSync(logFilePath, fileContent);

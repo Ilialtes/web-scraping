@@ -22,7 +22,7 @@ export function loadSkus(filename: string = 'skus.json'): SkuInput[] {
         const parsed = JSON.parse(rawData);
 
         if (!Array.isArray(parsed)) {
-            log('ERROR', ` Invalid JSON format in ${filename}. Expected an Array [...] but got Object.`);
+            log('ERROR', ` Invalid JSON format in ${filename}. Expected an Array [] but got Object.`);
             return [];
         }
 
