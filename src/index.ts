@@ -1,5 +1,4 @@
-import { chromium } from "playwright-extra";
-import StealthPlugin from "puppeteer-extra-plugin-stealth";
+import { chromium } from "playwright";
 import { createObjectCsvWriter } from "csv-writer"; 
 
 import { setAmazonLocationToUSA } from "./amazon-actions";
@@ -28,8 +27,6 @@ async function main() {
     log("ERROR", "No SKUs found in skus.json. Exiting.");
     return;
   }
-
-  chromium.use(StealthPlugin());
 
   const userAgentStrings = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",

@@ -4,7 +4,7 @@
 
 * **Language:** TypeScript
 * **Engine:** Playwright (Chromium)
-* **Utilities:** `csv-writer` (Data Export), `playwright-extra` (Stealth plugin)
+* **Utilities:** `csv-writer` (Data Export)
 
 ##  Project Structure
 
@@ -96,6 +96,11 @@ npx ts-node src/index.ts
 ### 4. Logging Strategy
 * **Decision:** Implemented a custom, lightweight logging utility (`src/logger.ts`) using standard `fs` and `console` methods to keep the project dependency-free and easy to review.
 * **Production Context:** I understand that for a production-grade distributed crawler, a robust logging framework like **Winston** or **Pino** would be preferred. These tools offer structured JSON logging, log rotation, and direct integration with observability platforms (like Datadog, Splunk, or ELK Stack) to handle high-velocity log ingestion.
+
+### 5. Bot Evasion Strategy & Tool Selection
+* **Evaluated Tools:** During development, I evaluated specialized stealth libraries including `puppeteer-extra-plugin-stealth` and `rebrowser-playwright` (a fork designed to patch CDP Runtime leaks).
+* **Observation:** While these tools are effective in many scenarios, testing confirmed that Walmart's PerimeterX implementation combined with a non-US residential IP (Costa Rica) still triggered blocks even with these patches applied.
+* **Decision:** Instead of relying on a potentially unstable or unmaintained fork that didn't solve the root cause (IP reputation), I chose to stick with **Native Playwright** for stability and ease of maintenance. I addressed the blocking issue at the architectural level (via the "Graceful Failure" and "Human-in-the-Loop" patterns) rather than at the library level.
 
 
 
