@@ -41,7 +41,7 @@ npm install
 
 ## Usage
 
-**Prepare the Input:** Ensure `skus.json` exists in the root directory with the following format:
+**Prepare the Input: The repository includes a skus.json file pre-populated with 150+ sample items for testing. You can run the scraper immediately with this file, or replace it with your own data using the following format:
 
 ```json
 [
@@ -96,5 +96,6 @@ npx ts-node src/index.ts
 ### 4. Logging Strategy
 * **Decision:** Implemented a custom, lightweight logging utility (`src/logger.ts`) using standard `fs` and `console` methods to keep the project dependency-free and easy to review.
 * **Production Context:** I understand that for a production-grade distributed crawler, a robust logging framework like **Winston** or **Pino** would be preferred. These tools offer structured JSON logging, log rotation, and direct integration with observability platforms (like Datadog, Splunk, or ELK Stack) to handle high-velocity log ingestion.
+
 
 
