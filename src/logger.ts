@@ -1,7 +1,6 @@
-/**
- * Standardized logger for the scraper.
- * formatting: [ISO_TIMESTAMP] [LEVEL] Message
- */
+import fs from 'fs';
+import path from 'path';
+
 export const log = (level: 'INFO' | 'WARN' | 'ERROR', message: string, data?: any) => {
     const timestamp = new Date().toISOString();
     const prefix = `[${timestamp}] [${level}]`;
@@ -11,4 +10,25 @@ export const log = (level: 'INFO' | 'WARN' | 'ERROR', message: string, data?: an
     } else {
         console.log(`${prefix} ${message}`);
     }
+
+    if (level === 'ERROR') {
+        saveErrorToLog(message, data);
+    }
 };
+
+function saveErrorToLog(message: string, data?: any) {
+    try {
+        const logFilePath = path.join(process.cwd(), 'errors.log');
+        let fileContent = message + '\n';
+        
+        if (data) {
+            const dataString = data instanceof Error ? data.stack : JSON.stringify(data);
+            fileContent += `    Details: ${dataString}\n`;
+        }
+        
+        fs.appendFileSync(logFilePath, fileContent);
+        
+    } catch (fsError) {
+        console.error('CRITICAL: Failed to write to errors.log', fsError);
+    }
+}
